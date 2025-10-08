@@ -1,11 +1,5 @@
-import UpsellPage from "../components/upsell-page"
-import PixelHelper from "../components/pixel-helper"
+import MinhaIAPremium from "@/components/minha-ia-premium"
 
-export default function Page() {
-  return (
-    <>
-      <UpsellPage />
-      <PixelHelper />
-    </>
-  )
+export default function Home() {
+  return <MinhaIAPremium />
 }

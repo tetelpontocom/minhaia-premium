@@ -1,9 +1,9 @@
-# Manus website clone
+# No content
 
 *Automatically synced with your [v0.app](https://v0.app) deployments*
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/denivaldosimoesgaudencio-1996s-projects/v0-manus-website-clone)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/lNxAfXkOYyJ)
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/tetelcomunidadevip-5261s-projects/v0-minha-iat-hankyou)
+[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/fsqomDe4s1q)
 
 ## Overview
 
@@ -14,13 +14,13 @@ Any changes you make to your deployed app will be automatically pushed to this r
 
 Your project is live at:
 
-**[https://vercel.com/denivaldosimoesgaudencio-1996s-projects/v0-manus-website-clone](https://vercel.com/denivaldosimoesgaudencio-1996s-projects/v0-manus-website-clone)**
+**[https://vercel.com/tetelcomunidadevip-5261s-projects/v0-minha-iat-hankyou](https://vercel.com/tetelcomunidadevip-5261s-projects/v0-minha-iat-hankyou)**
 
 ## Build your app
 
 Continue building your app on:
 
-**[https://v0.app/chat/projects/lNxAfXkOYyJ](https://v0.app/chat/projects/lNxAfXkOYyJ)**
+**[https://v0.app/chat/projects/fsqomDe4s1q](https://v0.app/chat/projects/fsqomDe4s1q)**
 
 ## How It Works
 

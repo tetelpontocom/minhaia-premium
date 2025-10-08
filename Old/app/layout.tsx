@@ -1,45 +1,29 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
+import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
+import { Analytics } from "@vercel/analytics/next"
+import { Suspense } from "react"
 import Script from "next/script"
-
-const inter = Inter({ subsets: ["latin"] })
+import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Minha IA Premium - Pacote Avançado com ChatGPT",
-  description:
-    "Descubra o Pacote Premium do Minha IA. Desbloqueie recursos exclusivos com subagentes premium, guias práticos e modelos prontos para multiplicar seus resultados.",
+  title: "Minha IA - Obrigado pela sua compra!",
+  description: "Sua jornada para dominar a Inteligência Artificial começa agora.",
+  generator: "v0.app",
   icons: {
     icon: "/favicon.ico",
   },
-  generator: "v0.app",
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
     <html lang="pt-BR">
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/favicon.ico" />
-        <meta name="theme-color" content="#7c3aed" />
-
-        {/* Google Analytics 4 */}
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-XXXXXXXXXX');
-          `}
-        </Script>
-
-        {/* Facebook Pixel */}
+      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <Script id="facebook-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
@@ -60,11 +44,11 @@ export default function RootLayout({
             width="1"
             style={{ display: "none" }}
             src="https://www.facebook.com/tr?id=1305167264321996&ev=PageView&noscript=1"
-            alt=""
           />
         </noscript>
-      </head>
-      <body className={inter.className}>{children}</body>
+        <Suspense fallback={null}>{children}</Suspense>
+        <Analytics />
+      </body>
     </html>
   )
 }
