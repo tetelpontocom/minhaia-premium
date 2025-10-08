@@ -28,13 +28,34 @@ export default function MinhaIAPremium() {
 
       window.fbq("init", "1305167264321996")
       window.fbq("track", "PageView")
-      window.fbq("track", "ViewContent", { content_name: "Minha IA Premium" })
+
+      const fireViewContent = () => {
+        if (typeof window !== "undefined" && window.fbq) {
+          window.fbq("track", "ViewContent", {
+            content_name: "Minha IA Premium",
+            currency: "BRL",
+            value: 47,
+          })
+          console.log("[v0] ViewContent event fired")
+        } else {
+          console.log("[v0] fbq not available yet, retrying...")
+          setTimeout(fireViewContent, 100)
+        }
+      }
+
+      // Small delay to ensure pixel script is loaded
+      setTimeout(fireViewContent, 500)
     }
   }, [])
 
   const handleCheckout = () => {
     if (typeof window !== "undefined" && window.fbq) {
-      window.fbq("track", "InitiateCheckout", { content_name: "Minha IA Premium" })
+      window.fbq("track", "InitiateCheckout", {
+        content_name: "Minha IA Premium",
+        currency: "BRL",
+        value: 47,
+      })
+      console.log("[v0] InitiateCheckout event fired")
     }
     window.location.href = "https://pay.kiwify.com.br/ypflx1p"
   }
@@ -42,6 +63,7 @@ export default function MinhaIAPremium() {
   const handleLeadClick = () => {
     if (typeof window !== "undefined" && window.fbq) {
       window.fbq("track", "Lead", { content_name: "Saída Ecossistema Tetel - Premium" })
+      console.log("[v0] Lead event fired")
     }
     window.location.href = "https://tetel.online/pravoce"
   }
