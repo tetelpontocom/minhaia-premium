@@ -7,8 +7,8 @@ import { useEffect } from "react"
 
 export default function MinhaIAPremium() {
   useEffect(() => {
-    // Meta Pixel base
-    if (typeof window !== "undefined" && !window.fbq) {
+    // Evita duplicação do pixel
+    if (typeof window !== "undefined" && !window.fbqInitialized) {
       !((f, b, e, v, n, t, s) => {
         if (f.fbq) return
         n = f.fbq = () => {
@@ -29,33 +29,18 @@ export default function MinhaIAPremium() {
       window.fbq("init", "1305167264321996")
       window.fbq("track", "PageView")
 
-      const fireViewContent = () => {
-        if (typeof window !== "undefined" && window.fbq) {
-          window.fbq("track", "ViewContent", {
-            content_name: "Minha IA Premium",
-            currency: "BRL",
-            value: 47,
-          })
-          console.log("[v0] ViewContent event fired")
-        } else {
-          console.log("[v0] fbq not available yet, retrying...")
-          setTimeout(fireViewContent, 100)
-        }
-      }
+      // Delay para garantir carregamento
+      setTimeout(() => {
+        window.fbq("track", "ViewContent", { content_name: "Minha IA Premium" })
+      }, 1000)
 
-      // Small delay to ensure pixel script is loaded
-      setTimeout(fireViewContent, 500)
+      window.fbqInitialized = true
     }
   }, [])
 
   const handleCheckout = () => {
     if (typeof window !== "undefined" && window.fbq) {
-      window.fbq("track", "InitiateCheckout", {
-        content_name: "Minha IA Premium",
-        currency: "BRL",
-        value: 47,
-      })
-      console.log("[v0] InitiateCheckout event fired")
+      window.fbq("track", "InitiateCheckout", { content_name: "Minha IA Premium" })
     }
     window.location.href = "https://pay.kiwify.com.br/ypflx1p"
   }
@@ -63,11 +48,11 @@ export default function MinhaIAPremium() {
   const handleLeadClick = () => {
     if (typeof window !== "undefined" && window.fbq) {
       window.fbq("track", "Lead", { content_name: "Saída Ecossistema Tetel - Premium" })
-      console.log("[v0] Lead event fired")
     }
     window.location.href = "https://tetel.online/pravoce"
   }
 
+  // layout original mantido
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-800 via-purple-900 to-black text-white">
       {/* Hero */}
@@ -122,9 +107,10 @@ export default function MinhaIAPremium() {
 
         <Button
           onClick={handleCheckout}
-          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto whitespace-normal min-h-[56px] leading-tight"
+          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-6 px-4 sm:px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto flex flex-col items-center gap-1"
         >
-          ✅ Sim! Quero o Pacote Premium
+          <span>Sim! Quero o</span>
+          <span>Pacote Premium</span>
         </Button>
 
         <div className="mt-6">
@@ -154,9 +140,10 @@ export default function MinhaIAPremium() {
       <section className="text-center py-12 px-4">
         <Button
           onClick={handleCheckout}
-          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto whitespace-normal min-h-[56px] leading-tight max-w-md mx-auto"
+          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-6 px-4 sm:px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto max-w-md mx-auto flex flex-col items-center gap-1"
         >
-          🚀 Quero o Pacote Premium agora
+          <span>Quero o Pacote</span>
+          <span>Premium agora</span>
         </Button>
       </section>
 

@@ -7,8 +7,8 @@ import { useEffect } from "react"
 
 export default function MinhaIAPremium() {
   useEffect(() => {
-    // Meta Pixel base
-    if (typeof window !== "undefined" && !window.fbq) {
+    // Evita duplicação do pixel
+    if (typeof window !== "undefined" && !window.fbqInitialized) {
       !((f, b, e, v, n, t, s) => {
         if (f.fbq) return
         n = f.fbq = () => {
@@ -28,7 +28,13 @@ export default function MinhaIAPremium() {
 
       window.fbq("init", "1305167264321996")
       window.fbq("track", "PageView")
-      window.fbq("track", "ViewContent", { content_name: "Minha IA Premium" })
+
+      // Delay para garantir carregamento
+      setTimeout(() => {
+        window.fbq("track", "ViewContent", { content_name: "Minha IA Premium" })
+      }, 1000)
+
+      window.fbqInitialized = true
     }
   }, [])
 
@@ -46,6 +52,7 @@ export default function MinhaIAPremium() {
     window.location.href = "https://tetel.online/pravoce"
   }
 
+  // layout original mantido
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-800 via-purple-900 to-black text-white">
       {/* Hero */}
@@ -100,9 +107,10 @@ export default function MinhaIAPremium() {
 
         <Button
           onClick={handleCheckout}
-          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-lg w-full sm:w-auto"
+          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-6 px-4 sm:px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto flex flex-col items-center gap-1"
         >
-          ✅ Sim! Quero o Pacote Premium
+          <span>Sim! Quero o</span>
+          <span>Pacote Premium</span>
         </Button>
 
         <div className="mt-6">
@@ -129,12 +137,13 @@ export default function MinhaIAPremium() {
       </section>
 
       {/* CTA Final */}
-      <section className="text-center py-12">
+      <section className="text-center py-12 px-4">
         <Button
           onClick={handleCheckout}
-          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-lg"
+          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-6 px-4 sm:px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto max-w-md mx-auto flex flex-col items-center gap-1"
         >
-          🚀 Quero o Pacote Premium agora
+          <span>Quero o Pacote</span>
+          <span>Premium agora</span>
         </Button>
       </section>
 
