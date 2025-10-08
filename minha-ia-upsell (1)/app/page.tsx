@@ -28,34 +28,13 @@ export default function MinhaIAPremium() {
 
       window.fbq("init", "1305167264321996")
       window.fbq("track", "PageView")
-
-      const fireViewContent = () => {
-        if (typeof window !== "undefined" && window.fbq) {
-          window.fbq("track", "ViewContent", {
-            content_name: "Minha IA Premium",
-            currency: "BRL",
-            value: 47,
-          })
-          console.log("[v0] ViewContent event fired")
-        } else {
-          console.log("[v0] fbq not available yet, retrying...")
-          setTimeout(fireViewContent, 100)
-        }
-      }
-
-      // Small delay to ensure pixel script is loaded
-      setTimeout(fireViewContent, 500)
+      window.fbq("track", "ViewContent", { content_name: "Minha IA Premium" })
     }
   }, [])
 
   const handleCheckout = () => {
     if (typeof window !== "undefined" && window.fbq) {
-      window.fbq("track", "InitiateCheckout", {
-        content_name: "Minha IA Premium",
-        currency: "BRL",
-        value: 47,
-      })
-      console.log("[v0] InitiateCheckout event fired")
+      window.fbq("track", "InitiateCheckout", { content_name: "Minha IA Premium" })
     }
     window.location.href = "https://pay.kiwify.com.br/ypflx1p"
   }
@@ -63,7 +42,6 @@ export default function MinhaIAPremium() {
   const handleLeadClick = () => {
     if (typeof window !== "undefined" && window.fbq) {
       window.fbq("track", "Lead", { content_name: "Saída Ecossistema Tetel - Premium" })
-      console.log("[v0] Lead event fired")
     }
     window.location.href = "https://tetel.online/pravoce"
   }
@@ -122,7 +100,7 @@ export default function MinhaIAPremium() {
 
         <Button
           onClick={handleCheckout}
-          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto whitespace-normal min-h-[56px] leading-tight"
+          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-lg w-full sm:w-auto"
         >
           ✅ Sim! Quero o Pacote Premium
         </Button>
@@ -151,10 +129,10 @@ export default function MinhaIAPremium() {
       </section>
 
       {/* CTA Final */}
-      <section className="text-center py-12 px-4">
+      <section className="text-center py-12">
         <Button
           onClick={handleCheckout}
-          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto whitespace-normal min-h-[56px] leading-tight max-w-md mx-auto"
+          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-lg"
         >
           🚀 Quero o Pacote Premium agora
         </Button>
