@@ -40,7 +40,6 @@
 }
 
 @theme inline {
-  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -86,49 +85,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-@keyframes glow {
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(239, 68, 68, 0.8);
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-glow {
-  animation: glow 2s ease-in-out infinite;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Custom pulsing animation for the fire emoji */
-@keyframes fire-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    filter: hue-rotate(0deg);
-  }
-  50% {
-    transform: scale(1.1);
-    filter: hue-rotate(10deg);
-  }
-}
-
-.fire-animation {
-  animation: fire-pulse 1.5s ease-in-out infinite;
 }

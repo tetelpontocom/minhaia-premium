@@ -5,10 +5,17 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Star, Sparkles, CheckCircle2 } from "lucide-react"
 import { useEffect } from "react"
 
+declare global {
+  interface Window {
+    fbq?: (...args: any[]) => void
+    fbqInitialized?: boolean
+  }
+}
+
 export default function MinhaIAPremium() {
-  // Meta Pixel base
   useEffect(() => {
-    if (typeof window !== "undefined" && !window.fbq) {
+    // Inicialização segura do Pixel
+    if (typeof window !== "undefined" && !window.fbqInitialized) {
       !((f, b, e, v, n, t, s) => {
         if (f.fbq) return
         n = f.fbq = () => {
@@ -16,11 +23,11 @@ export default function MinhaIAPremium() {
         }
         if (!f._fbq) f._fbq = n
         n.push = n
-        n.loaded = !0
+        n.loaded = true
         n.version = "2.0"
         n.queue = []
         t = b.createElement(e)
-        t.async = !0
+        t.async = true
         t.src = v
         s = b.getElementsByTagName(e)[0]
         s.parentNode.insertBefore(t, s)
@@ -28,7 +35,13 @@ export default function MinhaIAPremium() {
 
       window.fbq("init", "1305167264321996")
       window.fbq("track", "PageView")
-      window.fbq("track", "ViewContent", { content_name: "Minha IA Premium" })
+
+      // Delay leve para garantir carregamento completo
+      setTimeout(() => {
+        window.fbq?.("track", "ViewContent", { content_name: "Minha IA Premium" })
+      }, 300)
+
+      window.fbqInitialized = true
     }
   }, [])
 
@@ -41,7 +54,7 @@ export default function MinhaIAPremium() {
 
   const handleLeadClick = () => {
     if (typeof window !== "undefined" && window.fbq) {
-      window.fbq("track", "Lead", { content_name: "Saída Ecossistema Tetel" })
+      window.fbq("track", "Lead", { content_name: "Saída Ecossistema Tetel - Premium" })
     }
     window.location.href = "https://tetel.online/pravoce"
   }
@@ -56,7 +69,7 @@ export default function MinhaIAPremium() {
         </div>
 
         <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-          ✨ Descubra o Pacote <span className="text-yellow-300">Premium</span> do Minha IA
+          Descubra o Pacote <span className="text-yellow-300">Premium</span> do Minha IA
         </h1>
 
         <p className="text-lg sm:text-xl text-gray-200 max-w-2xl mx-auto mb-10">
@@ -70,19 +83,19 @@ export default function MinhaIAPremium() {
         <Card className="bg-purple-950/50 border border-purple-700 backdrop-blur-lg">
           <CardContent className="p-8 space-y-6">
             <div className="flex items-start gap-3">
-              <Star className="w-6 h-6 text-yellow-300" />
+              <Star className="w-6 h-6 text-yellow-300 flex-shrink-0" />
               <p>
                 <strong>Pacote exclusivo de Subagentes Premium</strong> para produtividade, vendas e conteúdo.
               </p>
             </div>
             <div className="flex items-start gap-3">
-              <CheckCircle2 className="w-6 h-6 text-blue-400" />
+              <CheckCircle2 className="w-6 h-6 text-blue-400 flex-shrink-0" />
               <p>
                 <strong>Guia prático exclusivo</strong> com estratégias para aplicar seus Agentes IA no dia a dia.
               </p>
             </div>
             <div className="flex items-start gap-3">
-              <CheckCircle2 className="w-6 h-6 text-yellow-300" />
+              <CheckCircle2 className="w-6 h-6 text-yellow-300 flex-shrink-0" />
               <p>
                 <strong>Modelos prontos</strong> para Instagram, eBooks, estratégias e apresentações.
               </p>
@@ -103,8 +116,7 @@ export default function MinhaIAPremium() {
             onClick={handleCheckout}
             className="bg-green-500 hover:bg-green-600 text-white font-semibold py-6 px-4 sm:px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto flex flex-col items-center justify-center gap-1"
           >
-            <span>Sim! Quero o</span>
-            <span>Pacote Premium</span>
+            <span>Sim! Quero o Pacote Premium</span>
           </Button>
         </div>
 
@@ -136,10 +148,9 @@ export default function MinhaIAPremium() {
         <div className="flex justify-center">
           <Button
             onClick={handleCheckout}
-            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-6 px-4 sm:px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto max-w-md flex flex-col items-center justify-center gap-1"
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-6 px-4 sm:px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto flex flex-col items-center justify-center gap-1"
           >
-            <span>Quero o Pacote</span>
-            <span>Premium agora</span>
+            <span>Quero o Pacote Premium agora</span>
           </Button>
         </div>
       </section>

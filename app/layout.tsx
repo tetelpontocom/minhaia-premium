@@ -7,8 +7,8 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Minha IA Premium - Acesso Exclusivo",
-  description: "Descubra o Pacote Premium do Minha IA com recursos exclusivos para produtividade, vendas e conteúdo.",
+  title: "Minha IA Premium - Desbloqueie Recursos Exclusivos",
+  description: "Acesse subagentes premium, guias práticos e modelos prontos para multiplicar seus resultados com IA",
   generator: "v0.app",
   icons: {
     icon: "/favicon.png",
