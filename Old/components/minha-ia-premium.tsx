@@ -7,9 +7,11 @@ import { useEffect } from "react"
 
 export default function MinhaIAPremium() {
   useEffect(() => {
-    // Evita duplicação do pixel
-    if (typeof window !== "undefined" && !window.fbqInitialized) {
-      !((f, b, e, v, n, t, s) => {
+    if (typeof window === "undefined") return
+
+    // Evita duplicar pixel se já carregado
+    if (!(window as any).fbqInitialized) {
+      ;((f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) => {
         if (f.fbq) return
         n = f.fbq = () => {
           n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
@@ -25,34 +27,43 @@ export default function MinhaIAPremium() {
         s = b.getElementsByTagName(e)[0]
         s.parentNode.insertBefore(t, s)
       })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js")
+      ;(window as any).fbq("init", "1305167264321996")
+      ;(window as any).fbq("track", "PageView")
+      ;(window as any).fbqInitialized = true
 
-      window.fbq("init", "1305167264321996")
-      window.fbq("track", "PageView")
-
-      // Delay para garantir carregamento
+      // Aguarda o carregamento do script antes de enviar o ViewContent
       setTimeout(() => {
-        window.fbq("track", "ViewContent", { content_name: "Minha IA Premium" })
+        if ((window as any).fbq) {
+          ;(window as any).fbq("track", "ViewContent", {
+            content_name: "Minha IA Premium",
+            content_category: "landing",
+            currency: "BRL",
+          })
+        }
       }, 1000)
-
-      window.fbqInitialized = true
     }
   }, [])
 
   const handleCheckout = () => {
-    if (typeof window !== "undefined" && window.fbq) {
-      window.fbq("track", "InitiateCheckout", { content_name: "Minha IA Premium" })
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      ;(window as any).fbq("track", "InitiateCheckout", {
+        content_name: "Minha IA Premium",
+        value: 47,
+        currency: "BRL",
+      })
     }
     window.location.href = "https://pay.kiwify.com.br/ypflx1p"
   }
 
   const handleLeadClick = () => {
-    if (typeof window !== "undefined" && window.fbq) {
-      window.fbq("track", "Lead", { content_name: "Saída Ecossistema Tetel - Premium" })
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      ;(window as any).fbq("track", "Lead", {
+        content_name: "Saída Ecossistema Tetel - Premium",
+      })
     }
     window.location.href = "https://tetel.online/pravoce"
   }
 
-  // layout original mantido
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-800 via-purple-900 to-black text-white">
       {/* Hero */}
@@ -105,13 +116,15 @@ export default function MinhaIAPremium() {
         </h2>
         <p className="text-base sm:text-lg text-gray-300 mb-8">Pagamento único, sem mensalidades.</p>
 
-        <Button
-          onClick={handleCheckout}
-          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-6 px-4 sm:px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto flex flex-col items-center gap-1"
-        >
-          <span>Sim! Quero o</span>
-          <span>Pacote Premium</span>
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            onClick={handleCheckout}
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-6 px-4 sm:px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto flex flex-col items-center justify-center gap-1"
+          >
+            <span>Sim! Quero o</span>
+            <span>Pacote Premium</span>
+          </Button>
+        </div>
 
         <div className="mt-6">
           <button onClick={handleLeadClick} className="text-sm text-gray-400 hover:text-gray-200 underline">
@@ -138,13 +151,15 @@ export default function MinhaIAPremium() {
 
       {/* CTA Final */}
       <section className="text-center py-12 px-4">
-        <Button
-          onClick={handleCheckout}
-          className="bg-green-500 hover:bg-green-600 text-white font-semibold py-6 px-4 sm:px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto max-w-md mx-auto flex flex-col items-center gap-1"
-        >
-          <span>Quero o Pacote</span>
-          <span>Premium agora</span>
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            onClick={handleCheckout}
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-6 px-4 sm:px-8 rounded-lg shadow-lg transition-all duration-200 active:scale-95 text-base sm:text-lg w-full sm:w-auto max-w-md flex flex-col items-center justify-center gap-1"
+          >
+            <span>Quero o Pacote</span>
+            <span>Premium agora</span>
+          </Button>
+        </div>
       </section>
 
       <footer className="text-center text-gray-400 text-sm py-6 border-t border-purple-800">

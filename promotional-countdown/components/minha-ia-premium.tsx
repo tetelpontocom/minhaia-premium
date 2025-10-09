@@ -6,12 +6,10 @@ import { Star, Sparkles, CheckCircle2 } from "lucide-react"
 import { useEffect } from "react"
 
 export default function MinhaIAPremium() {
+  // Meta Pixel base
   useEffect(() => {
-    if (typeof window === "undefined") return
-
-    // Evita duplicar pixel se já carregado
-    if (!(window as any).fbqInitialized) {
-      ;((f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) => {
+    if (typeof window !== "undefined" && !window.fbq) {
+      !((f, b, e, v, n, t, s) => {
         if (f.fbq) return
         n = f.fbq = () => {
           n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
@@ -27,39 +25,23 @@ export default function MinhaIAPremium() {
         s = b.getElementsByTagName(e)[0]
         s.parentNode.insertBefore(t, s)
       })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js")
-      ;(window as any).fbq("init", "1305167264321996")
-      ;(window as any).fbq("track", "PageView")
-      ;(window as any).fbqInitialized = true
 
-      // Aguarda o carregamento do script antes de enviar o ViewContent
-      setTimeout(() => {
-        if ((window as any).fbq) {
-          ;(window as any).fbq("track", "ViewContent", {
-            content_name: "Minha IA Premium",
-            content_category: "landing",
-            currency: "BRL",
-          })
-        }
-      }, 1000)
+      window.fbq("init", "1305167264321996")
+      window.fbq("track", "PageView")
+      window.fbq("track", "ViewContent", { content_name: "Minha IA Premium" })
     }
   }, [])
 
   const handleCheckout = () => {
-    if (typeof window !== "undefined" && (window as any).fbq) {
-      ;(window as any).fbq("track", "InitiateCheckout", {
-        content_name: "Minha IA Premium",
-        value: 47,
-        currency: "BRL",
-      })
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "InitiateCheckout", { content_name: "Minha IA Premium" })
     }
     window.location.href = "https://pay.kiwify.com.br/ypflx1p"
   }
 
   const handleLeadClick = () => {
-    if (typeof window !== "undefined" && (window as any).fbq) {
-      ;(window as any).fbq("track", "Lead", {
-        content_name: "Saída Ecossistema Tetel - Premium",
-      })
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "Lead", { content_name: "Saída Ecossistema Tetel" })
     }
     window.location.href = "https://tetel.online/pravoce"
   }
