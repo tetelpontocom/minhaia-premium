@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "Acesse subagentes premium, guias práticos e modelos prontos para multiplicar seus resultados com IA",
   generator: "v0.app",
   icons: {
-    icon: "/favicon.png",
+    icon: "/minha-ia-logo.webp",
   },
 }
 
