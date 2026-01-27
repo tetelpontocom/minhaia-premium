@@ -1,18 +1,26 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
-import { Analytics } from "@vercel/analytics/next"
-import { Suspense } from "react"
-import Script from "next/script"
-import "./globals.css"
+import React from "react"
+import type { Metadata } from 'next'
+import { Geist, Geist_Mono } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
+import { Suspense } from 'react'
+import './globals.css'
+
+const _geist = Geist({ subsets: ["latin"] });
+const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Minha IA Premium - Desbloqueie Recursos Exclusivos",
-  description: "Acesse subagentes premium, guias práticos e modelos prontos para multiplicar seus resultados com IA",
-  generator: "v0.app",
+  title: 'Minha IA - Configure seus Agentes Inteligentes',
+  description: 'Configure seus agentes e subagentes para otimizar tarefas, criar oportunidades e impulsionar resultados.',
+  generator: 'v0.app',
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      {
+        url: '/images/simbolo-tetelpontocom.png',
+        type: 'image/png',
+      },
+    ],
+    apple: '/images/simbolo-tetelpontocom.png',
   },
 }
 
@@ -22,8 +30,33 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
+        <link 
+          rel="icon" 
+          type="image/png" 
+          href="/images/simbolo-tetelpontocom.png" 
+        />
+        <link 
+          rel="apple-touch-icon" 
+          href="/images/simbolo-tetelpontocom.png" 
+        />
+
+        <Script id="fbq-purchase-blocker" strategy="beforeInteractive">
+          {`
+            window.fbq = window.fbq || function() {};
+            const _fbq = window.fbq;
+            window.fbq = function(...args) {
+              if (args[0] === 'track' && args[1] === 'Purchase') {
+                console.warn('Purchase bloqueado no carregamento inicial.');
+                return;
+              }
+              return _fbq(...args);
+            };
+            window.__fbq_patched = true;
+          `}
+        </Script>
+
         <Script id="facebook-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
@@ -42,13 +75,16 @@ export default function RootLayout({
           <img
             height="1"
             width="1"
-            style={{ display: "none" }}
+            style={{ display: 'none' }}
             src="https://www.facebook.com/tr?id=1305167264321996&ev=PageView&noscript=1"
+            alt=""
           />
         </noscript>
       </head>
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+      <body className={`font-sans antialiased`}>
+        <Suspense fallback={<div>Loading...</div>}>
+          {children}
+        </Suspense>
         <Analytics />
       </body>
     </html>
